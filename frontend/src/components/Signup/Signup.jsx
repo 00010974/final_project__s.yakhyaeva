@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai";
 import styles from '../../static/style';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {RxAvatar} from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
@@ -12,6 +12,8 @@ const Signup = () => {
     const [password, setPassword] = useState("");
     const [visible, setVisible] = useState(false);
     const [avatar, setAvatar] = useState(null);
+    const navigate = useNavigate();
+
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -28,9 +30,12 @@ const Signup = () => {
         newForm.append("email", email);
         newForm.append("password", password);
 
-        axios.post(`${server}/user/create-user`, newForm, config)
+        axios
+        .post(`${server}/user/create-user`, newForm, config)
         .then((res) => {
-            console.log(res);
+            if(res.data.success === true){
+                navigate("/");
+            }
         }).catch((err) => {
             console.log(err);
         })
@@ -58,7 +63,7 @@ const Signup = () => {
                                     type="text" 
                                     name="text" 
                                     autoComplete='name' 
-                                    require 
+                                    require={true}
                                     value={name} 
                                     onChange={(e) => setName(e.target.value)} 
                                     className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
@@ -77,7 +82,7 @@ const Signup = () => {
                                     type="email" 
                                     name="email" 
                                     autoComplete='email' 
-                                    require 
+                                    require={true}
                                     value={email} 
                                     onChange={(e) => setEmail(e.target.value)} 
                                     className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
@@ -96,7 +101,7 @@ const Signup = () => {
                                     type={visible ? "text" : "password"} 
                                     name="password" 
                                     autoComplete='current-password' 
-                                    require 
+                                    require={true}
                                     value={password} 
                                     onChange={(e) => setPassword(e.target.value)} 
                                     className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm'

@@ -1,5 +1,5 @@
 const express = require("express");
-const ErrorHandler = require("./utils/ErrorHandler");
+const ErrorHandler = require("./middleware/error");
 const app = express();
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
@@ -28,4 +28,4 @@ app.use("/api/v2/user", user);
 //it's for ErrorHandler
 app.use(ErrorHandler);
 
-module.exports = app
+module.exports = app;
