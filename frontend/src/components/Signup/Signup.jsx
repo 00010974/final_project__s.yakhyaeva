@@ -36,9 +36,9 @@ const Signup = () => {
             if(res.data.success === true){
                 navigate("/");
             }
-        }).catch((err) => {
-            console.log(err);
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
     };
 
   return (
@@ -118,7 +118,8 @@ const Signup = () => {
                                                 size={25}
                                                 onClick={() => setVisible(true)}
                                             />
-                                        )}
+                                        )
+                                    }
                             </div>
                         </div>
                         {/* avatar */}
